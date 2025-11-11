@@ -7,19 +7,17 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # GitHub’s free Linux runner
-
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'  # change if your project uses a different Node version
+          node-version: 'v22.15.1'  # use your exact local version
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci  # clean install based on package-lock.json
 
       - name: Build Quasar app
-        run: npm run build  # or 'quasar build' if you use quasar CLI directly
+        run: npm run build
