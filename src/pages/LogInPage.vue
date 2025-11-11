@@ -48,11 +48,11 @@ const router = useRouter();
 const $q = useQuasar();
 const authStore = useAuthStore();
 
-async function handleLogin() {
+ function handleLogin() {
   loading.value = true;
   try {
-    await authStore.login({ username: username.value, password: password.value });
-    await router.push('/dashboard'); // Redirect on success
+     authStore.login({ username: username.value, password: password.value });
+     router.push('/dashboard'); // Redirect on success
   } catch (error) {
     loading.value = false;
     $q.notify({
