@@ -57,7 +57,7 @@ async function handleLogin() {
     loading.value = false;
     $q.notify({
       color: 'negative',
-      message: 'Login failed. Please check your credentials.',
+      message: String(error) + 'Login failed. Please check your credentials.',
       icon: 'warning'
     });
   }
