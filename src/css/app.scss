@@ -1,1 +1,14 @@
 // app global css in SCSS form
+body {
+  background-color: #E2E8F0; /* Light gray background */
+  color: #1E293B;            /* Optional: Text color */
+}
+body.body--dark {
+  background-color: #0F172A; /* Dark navy background */
+  color: #E2E8F0;
+}
+.card{
+    background-color: #FFFFFF;
+    color: #1E293B;            /* Optional: Text color */
+}
+
