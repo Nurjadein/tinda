@@ -1,0 +1,25 @@
+name: Build Quasar Project
+
+on:
+  push:
+    branches:
+      - '**'  # runs on every branch push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # GitHub’s free Linux runner
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'  # change if your project uses a different Node version
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Quasar app
+        run: npm run build  # or 'quasar build' if you use quasar CLI directly
