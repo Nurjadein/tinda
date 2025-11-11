@@ -52,7 +52,7 @@ async function handleLogin() {
   loading.value = true;
   try {
     await authStore.login({ username: username.value, password: password.value });
-    router.push('/dashboard'); // Redirect on success
+    await router.push('/dashboard'); // Redirect on success
   } catch (error) {
     loading.value = false;
     $q.notify({
