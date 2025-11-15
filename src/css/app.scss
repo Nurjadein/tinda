@@ -8,7 +8,15 @@ body.body--dark {
   color: #E2E8F0;
 }
 .card{
-    background-color: #FFFFFF;
+    background-color: #ffffffe7;
     color: #1E293B;            /* Optional: Text color */
 }
+.transparent{
+  background-color: transparent;
+  box-shadow: none;
+}
+.q-btn__content {
+  text-transform: none !important;
+}
+
 
