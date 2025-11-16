@@ -3,6 +3,10 @@ body {
   background-color: #E2E8F0; /* Light gray background */
   color: #1E293B;            /* Optional: Text color */
 }
+.bg-gradient {
+  background: linear-gradient(135deg, #04004a, #0b056f, #961010);
+  min-height: 100vh;
+}
 body.body--dark {
   background-color: #0F172A; /* Dark navy background */
   color: #E2E8F0;
@@ -18,5 +22,16 @@ body.body--dark {
 .q-btn__content {
   text-transform: none !important;
 }
+.loginLogoSize {
+  width:50%;
+}
+.login-bg {
+ background: linear-gradient(180deg, #E6EBF1 0%, #E1E8F0 35%, #DDE6EF 100%);
 
+}
+.avatar-img {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
 
