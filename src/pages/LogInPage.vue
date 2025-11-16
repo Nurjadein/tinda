@@ -1,65 +1,74 @@
 <template>
-  <q-page padding class="flex flex-center">
-    <q-card style="width: 350px;">
-      <q-card-section>
-        <div class="text-h6">Login to Your Account</div>
-      </q-card-section>
-
-      <q-card-section>
-        <q-input
-          filled
-          v-model="username"
-          label="Username"
-          type="text"
-          autofocus
-          lazy-rules
-          :rules="[val => !!val || 'Username is required']"
-        />
-
-        <q-input
-          filled
-          v-model="password"
-          label="Password"
-          type="password"
-          lazy-rules
-          :rules="[val => !!val || 'Password is required']"
-          class="q-mt-md"
-        />
-      </q-card-section>
-
-      <q-card-actions align="right">
-        <q-btn label="Login" color="primary" @click="handleLogin" :loading="loading" />
-      </q-card-actions>
+  <q-page
+    class="flex flex-center bg-gradient"
+    style="min-height: 100vh; padding: 24px;"
+  >
+    <q-card
+      flat
+      bordered
+      class="q-pa-xl shadow-lg items-center"
+      style="width: 100%; max-width: 400px; border-radius: 20px;"
+    >
+    <div class="text-center">
+      <div class="text-center">
+        <div class="q-mx-auto flex justify-center items-center loginLogoSize">
+          <q-img :src="logo"/>
+        </div>
+        <div class="text-h5 font-bold q-pt-md">Welcome!</div>
+        <div class="text-subtitle2 text-grey-7">
+          Please login to your account
+        </div>
+      </div>
+    </div>
+      <q-form @submit.prevent="submit">
+        <q-card-section>
+          <div>
+            <q-input
+              v-model="email"
+              type="email"
+              label="Email Address"
+              outlined
+              dense
+              clearable
+              autofocus
+              :rules="[val => !!val || 'Email is required', val => val.includes('@') || 'Email must be valid']"
+            />
+            <q-input
+              v-model="password"
+              type="password"
+              label="Password"
+              outlined
+              dense
+              clearable
+              :rules="[val => !!val || 'Password is required']"
+            />
+    
+          </div>
+          <div>
+            <q-btn
+              type="submit"
+              label="Sign In"
+              color="primary"
+              unelevated
+              class="full-width"
+            />
+          </div>
+        </q-card-section>
+      </q-form>
     </q-card>
   </q-page>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { useAuthStore } from 'stores/auth'; 
-import { useQuasar } from 'quasar';
+import logo from 'src/assets/tindaLogoWithLabel.png';
 
-const username = ref('');
+const email = ref('');
 const password = ref('');
-const loading = ref(false);
 
-const router = useRouter();
-const $q = useQuasar();
-const authStore = useAuthStore();
-
- async function handleLogin() {
-  loading.value = true;
-  try {
-     authStore.login({ username: username.value, password: password.value });
-     await router.push('/dashboard'); // Redirect on success
-  } catch (error) {
-    loading.value = false;
-    $q.notify({
-      color: 'negative',
-      message: String(error) + 'Login failed. Please check your credentials.',
-      icon: 'warning'
-    });
+function submit() {
+  if (email.value && password.value) {
+    alert(`Logging in:\nEmail: ${email.value}\nPassword: ${password.value}`);
   }
 }
 </script>
