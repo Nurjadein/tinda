@@ -1,5 +1,5 @@
 import { ref } from 'vue';
-import { getLocale, setLocale, t } from 'src/i18n/useI18n';
+import { getLocale, setLocale, t } from 'src/composables/useI18n';
 
 export function useTranslate() {
   const currentLocale = ref(getLocale());
