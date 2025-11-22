@@ -3,10 +3,21 @@
     class="flex flex-center bg-gradient"
     style="min-height: 100vh; padding: 24px;"
   >
+  <div class="q-pa-md absolute-top-right">
+    <q-btn-dropdown color="primary" :label="$t('language')">
+      <q-list>
+        <q-item clickable v-close-popup v-for="lang in languages" :key="lang.value" @click="translate(lang.value)">
+          <q-item-section>
+            <q-item-label>{{ lang.lang }}</q-item-label>
+          </q-item-section>
+        </q-item>
+      </q-list>
+    </q-btn-dropdown>
+  </div>
     <q-card
       flat
       bordered
-      class="q-pa-xl shadow-lg items-center"
+      class="q-pa-xl shadow-lg items-center card"
       style="width: 100%; max-width: 400px; border-radius: 20px;"
     >
     <div class="text-center">
@@ -14,9 +25,9 @@
         <div class="q-mx-auto flex justify-center items-center loginLogoSize">
           <q-img :src="logo"/>
         </div>
-        <div class="text-h5 font-bold q-pt-md">Welcome!</div>
+        <div class="text-h5 font-bold q-pt-md">{{$t('welcome-label') }}</div>
         <div class="text-subtitle2 text-grey-7">
-          Please login to your account
+          {{$t('please-login')}}
         </div>
       </div>
     </div>
@@ -24,30 +35,31 @@
         <q-card-section>
           <div>
             <q-input
-              v-model="email"
-              type="email"
-              label="Email Address"
+              class="q-pb-lg"
+              v-model="username"
+              :label="$t('username')"
               outlined
               dense
               clearable
               autofocus
-              :rules="[val => !!val || 'Email is required', val => val.includes('@') || 'Email must be valid']"
+              :rules="[val => !!val || $t('username-is-required')]"
             />
             <q-input
+              class="q-pb-lg"
               v-model="password"
               type="password"
-              label="Password"
+              :label="$t('password')"
               outlined
               dense
               clearable
-              :rules="[val => !!val || 'Password is required']"
+              :rules="[val => !!val || $t('password-is-required')]"
             />
     
           </div>
           <div>
             <q-btn
               type="submit"
-              label="Sign In"
+              :label="$t('login-label')"
               color="primary"
               unelevated
               class="full-width"
@@ -62,13 +74,25 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import logo from 'src/assets/tindaLogoWithLabel.png';
+import type { ILanguages } from 'src/interfaces/language.interface';
+import { useTranslate } from 'src/composables/useTranslate';
 
-const email = ref('');
+const { translate, $t } = useTranslate();
+
+const username = ref('');
 const password = ref('');
+const languages:ILanguages[] = [{
+  lang:$t('english'),
+  value: $t('en-US')
+},{
+  lang:$t('arabic'),
+  value: $t('ar-SA')
+}]
 
 function submit() {
-  if (email.value && password.value) {
-    alert(`Logging in:\nEmail: ${email.value}\nPassword: ${password.value}`);
+  if (username.value && password.value) {
+    alert(`Logging in:\nEmail: ${username.value}\nPassword: ${password.value}`);
   }
 }
+
 </script>
