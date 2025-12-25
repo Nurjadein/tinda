@@ -1,12 +1,14 @@
 <template>
   <q-page
-    class="flex flex-center bg-gradient"
+    class=" q-rtl flex flex-center bg-gradient"
     style="min-height: 100vh; padding: 24px;"
+    dir="rtl"
+    :class="isRTL ? 'q-rtl': ''"
   >
   <div class="q-pa-md absolute-top-right">
     <q-btn-dropdown color="primary" :label="$t('language')">
       <q-list>
-        <q-item clickable v-close-popup v-for="lang in languages" :key="lang.value" @click="translate(lang.value)">
+        <q-item clickable v-close-popup v-for="lang in languages" :key="lang.value" @click="changeLanguage(lang.value)">
           <q-item-section>
             <q-item-label>{{ lang.lang }}</q-item-label>
           </q-item-section>
@@ -81,6 +83,7 @@ const { translate, $t } = useTranslate();
 
 const username = ref('');
 const password = ref('');
+const isRTL = ref(false); 
 const languages:ILanguages[] = [{
   lang:$t('english'),
   value: $t('en-US')
@@ -88,7 +91,10 @@ const languages:ILanguages[] = [{
   lang:$t('arabic'),
   value: $t('ar-SA')
 }]
-
+function changeLanguage(lang:string){
+  isRTL.value = true;
+  translate(lang);
+}
 function submit() {
   if (username.value && password.value) {
     alert(`Logging in:\nEmail: ${username.value}\nPassword: ${password.value}`);
@@ -96,3 +102,9 @@ function submit() {
 }
 
 </script>
+<style scoped>
+.q-rtl {
+  direction: rtl !important;
+  unicode-bidi: bidi-override !important;
+}
+</style>
